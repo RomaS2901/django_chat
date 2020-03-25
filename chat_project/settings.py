@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'chat_app.apps.ChatAppConfig',
-    'channels'
+    'bootstrap4',
+    'channels',
+    'authentication'
 ]
 
 MIDDLEWARE = [
@@ -80,9 +82,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'chat',
-        'USER': 'admin',
-        'PASSWORD': '1111',
-        'HOST': 'localhost',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '172.17.0.1',
         'PORT': '5432',
     }
 }
@@ -125,6 +127,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
 
 ASGI_APPLICATION = "chat_project.routing.application"
 

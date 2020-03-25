@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron m-5">
+        <h1 class="text-center">Hello stranger : ) Log in here, please: </h1>
+        <div class="container-fluid">
+            <form class="m-5" action="{% url 'authentication:login' %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <button class="btn btn-block btn-success">Log me in</button>
+            </form>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <a class="btn btn-block btn-warning" href="{% url 'authentication:signup' %}">Sign up here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
