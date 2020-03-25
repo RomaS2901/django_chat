@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'chat_app/css/chat_app.css' %}">
+    <title>Chat</title>
+</head>
+<body>
+    <section class="chat-authorize" id="chat-authorize">
+        <h1 class="chat-authorize__title">Greetings to you, stranger!</h1>
+        <form class="chat-authorize__form" action="{% url 'chat-room' %}" id="auth-form">
+            <label class="chat-authorize__label chat__label" for="introduce">Please, introduce yourself to start chatting:</label>
+            <input autofocus class="chat-authorize__input" type="text" placeholder="Share your name or nickname to start chatting..." name="introduce" id="introduce">
+            <button class="submit__button">Start chatting!</button>
+        </form>
+    </section>
+    <section class="chat" id="chat">
+        <h1 class="chat__title" id="chat__title">Welcome to our chat</h1>
+        <div class="chat__message-input">
+            <textarea class="chat__message__input" name="message" id="message" cols="30" rows="10" placeholder="Start typing your message"></textarea>
+            <button class="submit__button" id="message__submit">Send message</button>
+        </div>
+        <div class="chat-history" id="chat-history">
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="chat__message {% if message.message_type == 'notification' %} chat__notification {% endif %}">
+                    <span class="chat__message__user">User: {{ message.username }}</span>
+                        {{ message.message }}
+                    <span class="chat__message__time">Time: {{ message.timestamp|date:"d-m-Y" }}</span>
+                    </p>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
+</body>
+<script src="{% static 'chat_app/js/chat_room.js' %}"></script>
+</html>

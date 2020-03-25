@@ -1,0 +1,136 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+/* COMMON */
+
+.submit__button {
+    width: 40%;
+    margin: 5px auto;
+    border: none;
+    background: transparent linear-gradient(135deg, green, yellowgreen, green);
+    font-size: 22px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px gray;
+    cursor: pointer;
+    transition: 1s;
+}
+
+/* AUTH */
+
+.chat-authorize {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    transition: 1s;
+}
+
+.chat-authorize__title {
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.chat-authorize__label {
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.chat-authorize__input {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    box-shadow: 0 0 5px gray;
+    font-size: 22px;
+    transition: 1s;
+}
+
+.chat-authorize__form {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    width: 50vw;
+    height: 30vh;
+}
+
+.chat-authorize__input:focus {
+    outline: none;
+    box-shadow: 0 0 10px gray, 0 0 15px gray;
+}
+
+.chat-authorize__submit:hover {
+    box-shadow: 0 0 8px yellowgreen, 0 0 10px yellowgreen, 0 0 12px yellowgreen;
+    transform: scale(.97);
+}
+
+/* AUTH */
+
+/* CHAT */
+
+.chat {
+    opacity: 0;
+    z-index: -1;
+    transition: 1s;
+    display: none;
+}
+
+.chat__title {
+    text-align: center;
+    font-weight: 900;
+}
+
+.chat__message-input {
+    text-align: center;
+}
+
+.chat__message__input {
+    width: 60%;
+    height: 30%;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px gray;
+    padding: 30px;
+    transition: 1s;
+}
+
+.chat__message:focus {
+    outline: none;
+    box-shadow: 0 0 8px gray, 0 0 10px gray, 0 0 12px gray;
+}
+
+.chat__message {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    width: 80%;
+    max-width: 80%;
+    margin: 10px auto;
+    border-radius: 10px;
+    font-size: 25px;
+    box-shadow: 0 0 10px gray;
+    padding: 40px;
+}
+
+.chat__message__user,
+.chat__message__time {
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 2px gray;
+    white-space: nowrap;
+}
+
+.chat__notification {
+    color: darkblue;
+    font-style: italic;
+}
