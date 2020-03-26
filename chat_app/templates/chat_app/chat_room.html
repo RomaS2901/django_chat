@@ -7,32 +7,53 @@
     <title>Chat</title>
 </head>
 <body>
-    <section class="chat-authorize" id="chat-authorize">
-        <h1 class="chat-authorize__title">Greetings to you, stranger!</h1>
-        <form class="chat-authorize__form" action="{% url 'chat-room' %}" id="auth-form">
-            <label class="chat-authorize__label chat__label" for="introduce">Please, introduce yourself to start chatting:</label>
-            <input autofocus class="chat-authorize__input" type="text" placeholder="Share your name or nickname to start chatting..." name="introduce" id="introduce">
-            <button class="submit__button">Start chatting!</button>
-        </form>
-    </section>
     <section class="chat" id="chat">
-        <h1 class="chat__title" id="chat__title">Welcome to our chat</h1>
+        <h1 class="chat__title" id="chat__title">Welcome to our chat, {{ request.user.username }} :) </h1>
         <div class="chat__message-input">
             <textarea class="chat__message__input" name="message" id="message" cols="30" rows="10" placeholder="Start typing your message"></textarea>
+            <select class="chat__message-mention" name="mention" id="mention">
+                <option value="">Choose a user if you want to mention any in your message</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
             <button class="submit__button" id="message__submit">Send message</button>
         </div>
         <div class="chat-history" id="chat-history">
-            {% if messages %}
-                {% for message in messages %}
-                    <p class="chat__message {% if message.message_type == 'notification' %} chat__notification {% endif %}">
-                    <span class="chat__message__user">User: {{ message.username }}</span>
+            {% for message in messages %}
+                {% if message.message_type == 'notification' %}
+                    <p class="chat__message chat__notification">
+                        <span class="chat__message__user">User: {{ message.user.username }}</span>
                         {{ message.message }}
-                    <span class="chat__message__time">Time: {{ message.timestamp|date:"d-m-Y" }}</span>
+                        <span class="chat__message__time">Time: {{ message.timestamp|date:"d-m-Y H:i" }}</span>
                     </p>
+                {% elif message.message_type == 'mention' %}
+                    <p class="chat__message chat__mention">
+                        <span class="chat__message__user">User: {{ message.user.username }}</span>
+                        <span>
+                            <span class="chat__message-mention__span">@{{ message.mentioned }}:</span>
+                            {{ message.message }}
+                        </span>
+                        <span class="chat__message__time">Time: {{ message.timestamp|date:"d-m-Y H:i" }}</span>
+                    </p>
+                {% elif message.message_type == 'chat_message' %}
+                    <p class="chat__message message__default">
+                        <span class="chat__message__user">User: {{ message.user.username }}</span>
+                        {{ message.message }}
+                        <span class="chat__message__time">Time: {{ message.timestamp|date:"d-m-Y H:i" }}</span>
+                    </p>
+                {% endif %}
+                {% empty %}
+                    <p class="chat__message">There are no messages here...</p>
                 {% endfor %}
-            {% endif %}
         </div>
     </section>
+    <div class="toast-wrapper" id="toast-wrapper">
+        <div class="toast" id="toast">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda, debitis.
+        </div>
+    </div>
+    {{ request.user.username|json_script:"userName" }}
 </body>
 <script src="{% static 'chat_app/js/chat_room.js' %}"></script>
 </html>
